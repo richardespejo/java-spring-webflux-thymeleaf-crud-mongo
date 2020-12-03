@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+    xmlns:th="http://www.thymeleaf.org" 
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="UTF-8">
+<title th:text="${titulo}">Insert title here</title>
+</head>
+<body>
+
+<div th:text="${param.error}" th:if="${param.error != null}"></div>
+<div th:text="${param.success}" th:if="${param.success != success}"></div>
+
+<h1 th:text="${titulo}"></h1>
+<table>
+	<thead>
+		<tr>
+			<td>ID</td>
+			<td>Nombre</td>
+			<td>Precio</td>
+			<td>Fecha</td>
+			<td>Categoria</td>
+			<td>Acciones</td>
+		</tr>
+	</thead>
+	<tbody>
+		<tr th:each="producto: ${productos}">
+			<td > <a th:href="@{/ver/} + ${producto.id}" th:text="${#strings.abbreviate(producto.id , 10)}"></a> </td>
+			<td th:text="${producto.nombre}"></td>
+			<td th:text="${#numbers.formatCurrency(producto.precio)}"></td>
+			<td th:text="${#calendars.format(producto.createAt , 'dd/MM/YYYY')}"></td>
+			<td th:text="${producto.categoria.descripcion}"></td>
+			<td>
+				<a th:href="@{/form/} + ${producto.id}">Modificar</a>
+				<a th:href="@{/form-v2/} + ${producto.id}">Modificar 2daVersion </a>
+				<a th:href="@{/eliminar/} + ${producto.id}" onclick="return confirm('segruo de eliminar el producto');" >Eliminar </a>
+			</td>
+		</tr>
+	</tbody>
+</table>
+<br>
+<a th:href="@{/form}">Agregar Nuevo Producto</a>
+
+</body>
+</html>

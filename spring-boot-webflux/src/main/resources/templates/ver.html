@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+    xmlns:th="http://www.thymeleaf.org" 
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="UTF-8">
+<title th:text="${titulo}">Insert title here</title>
+</head>
+<body>
+
+<h1 th:text="${titulo}"></h1>
+
+<div th:if="${producto.imagen != null && #strings.length(producto.imagen)>0}">
+	<img th:src="@{/file/img/} + ${producto.imagen}" th:alt="${producto.nombre}" style="max-width: 25%;" />
+</div>
+
+<ul>
+	<li th:text="${producto.nombre}"></li>
+	<li th:text="'ID: ' + ${producto.id}"></li>
+	<li th:text="'Precio: ' + ${#numbers.formatCurrency(producto.precio)}"></li>
+	<li th:text="'Fecha:  ' + ${producto.createAt}"></li>
+</ul>
+
+<br>
+<a th:href="@{/listar}">Volver</a>
+
+</body>
+</html>
